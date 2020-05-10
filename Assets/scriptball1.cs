@@ -7,8 +7,10 @@ public class scriptball1 : MonoBehaviour
     //public int speed = 30;
 
     public Rigidbody2D sesuatu;
-
+    public GameObject masterScript;
 public Animator animtr;
+
+public AudioSource hitEffect;
     // Start is called before the first frame update
     void Start()
     { 
@@ -32,8 +34,12 @@ public Animator animtr;
 
     void OnCollisionEnter2D(Collision2D other) {
         if(other.collider.name=="DindingKanan"||other.collider.name=="DindingKiri"){
+            masterScript.GetComponent<ScoringScript>().UpdateScore(other.collider.name);
            StartCoroutine(jeda());
         }    
+        if(other.collider.tag=="Player"){
+            hitEffect.Play();
+        }
     }
 
     IEnumerator jeda(){
